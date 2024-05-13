@@ -42,7 +42,8 @@
   <title>Document</title>
 </head>
 <body>
-  <h1><%= dancer.getName() %>님이 등록되었습니다</h1>
-  <a href="/chap02/dancer/show-list">댄서 정보 모아보기</a>
+  
+  <h1><%= dancer.getName() %>님이 등록되었습니다.</h1>
+  <a href="/chap02/dancer/show-list">댄서 정보 모아보깅~~~ </a>
 </body>
 </html>

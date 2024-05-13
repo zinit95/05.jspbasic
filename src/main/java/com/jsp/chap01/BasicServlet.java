@@ -34,21 +34,27 @@ public class BasicServlet extends HttpServlet {
 
         // 요청 파라미터 정보
         String queryString = req.getQueryString();
-        String header = req.getHeader("Cache-control");
+
+        // 요청 헤더 정보 읽기
+        String header = req.getHeader("Cache-Control");
 
         System.out.println("method = " + method);
         System.out.println("requestURI = " + requestURI);
         System.out.println("queryString = " + queryString);
         System.out.println("header = " + header);
 
-        //쿼리스트링 (요청 파라미터) 하나씩 읽기
+        // 쿼리스트링 (요청 파라미터) 하나씩 읽기
         String name = req.getParameter("name");
         String age = req.getParameter("age");
-        String grand = req.getParameter("grade");
+        String grade = req.getParameter("grade");
 
-        //서버의 응답 처리
-        //비즈니스 로직 : 나이를 기반으로 출생녀도를 계산
-        //학점이 f면 과락처리, 아니면 통과처리
+        System.out.println("name = " + name);
+        System.out.println("age = " + age);
+        System.out.println("grade = " + grade);
+
+        // 서버의 응답 처리
+        // 비즈니스 로직 : 나이를 기반으로 출생년도를 계산
+        //   학점이 F면 과락처리, 아니면 통과처리
         int birthYear = 0;
         try {
             birthYear = LocalDate.now().getYear() - Integer.parseInt(age) + 1;
@@ -58,21 +64,22 @@ public class BasicServlet extends HttpServlet {
         }
 
         String message;
-        switch(grand){
+        switch (grade) {
             case "F":
-                message = "재수강하셈";
+                message = "재수강 하셔야 합니다.";
                 break;
             default:
-                message = "시험에 통과햇슴다";
+                message = "시험에 통과하셨습니다.";
         }
 
-        //응답 메시지 생성
+        // 응답 메시지 생성
         resp.setStatus(200);
         resp.setContentType("text/html");
         resp.setCharacterEncoding("utf-8");
 
         // 응답 바디에 넣을 html 생성
         PrintWriter w = resp.getWriter();
+
         w.write("<!DOCTYPE html>\n");
         w.write("<html>\n");
         w.write("<head>\n");
@@ -81,11 +88,9 @@ public class BasicServlet extends HttpServlet {
         w.write("   \t<h1>\n");
         w.write(String.format("%s님은 %d년생입니다.", name, birthYear));
         w.write("   </h1>\n");
-        w.write("   <h2>\n" + message + "</h2>");
+        w.write("<h2>" + message + "</h2>");
         w.write("</body>\n");
         w.write("</html>");
-
-
 
     }
 }
